@@ -29,10 +29,10 @@ dependencies {
 }
 
 test {
-    if (hasProperty('bitlyAccessToken')) {
+    if (project.hasProperty('bitlyAccessToken')) {
         systemProperty('urlshortener.bitlyAccessToken', bitlyAccessToken)
     }
-    if (hasProperty('googleApiKey')) {
+    if (project.hasProperty('googleApiKey')) {
         systemProperty('urlshortener.googleApiKey', googleApiKey)
     }
 }
