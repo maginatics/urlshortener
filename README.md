@@ -1,6 +1,8 @@
 urlshortener: A Java client for URL shortners
 =============================================
 
+[![Build Status](https://travis-ci.org/maginatics/urlshortener.png)](https://travis-ci.org/maginatics/urlshortener)
+
 Usage:
 
 ```java
