@@ -29,8 +29,12 @@ dependencies {
 }
 
 test {
-    systemProperty('urlshortener.bitlyAccessToken', bitlyAccessToken)
-    systemProperty('urlshortener.googleApiKey', googleApiKey)
+    if (hasProperty('bitlyAccessToken')) {
+        systemProperty('urlshortener.bitlyAccessToken', bitlyAccessToken)
+    }
+    if (hasProperty('googleApiKey')) {
+        systemProperty('urlshortener.googleApiKey', googleApiKey)
+    }
 }
 
 modifyPom {
