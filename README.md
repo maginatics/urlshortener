@@ -1,11 +1,12 @@
-urlshortener: A Java client for URL shortening services
-=======================================================“
+urlshortener: A Java client for URL shortners
+=============================================
 
 Usage:
 
-    UrlShortener shortener = UrlShorteners.bitlyUrlShortener(
-        bitlyAccessToken);
+```java
+    UrlShortener shortener = UrlShorteners.bitlyUrlShortener(bitlyAccessToken);
     // Or googleUrlShortener(googleApiKey)
     URL shortUrl = shortener.shorten(longUrl);
+```
 
 That's it!
