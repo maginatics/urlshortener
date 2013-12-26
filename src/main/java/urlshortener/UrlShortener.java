@@ -16,7 +16,7 @@
 
 package urlshortener;
 
-import java.net.URL;
+import java.net.URI;
 
 /** Minimal API for URL Shorteners. */
 public interface UrlShortener {
@@ -28,5 +28,5 @@ public interface UrlShortener {
      *         This is a best-effort interface and implementers may return the
      *         longUrl in case of errors.
      */
-    URL shorten(URL longUrl);
+    URI shorten(URI longUrl);
 }

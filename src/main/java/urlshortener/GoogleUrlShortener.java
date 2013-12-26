@@ -16,7 +16,7 @@
 
 package urlshortener;
 
-import java.net.URL;
+import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +43,7 @@ final class GoogleUrlShortener implements UrlShortener {
     }
 
     @Override
-    public URL shorten(final URL longUrl) {
+    public URI shorten(final URI longUrl) {
         try {
             return google.shorten(apiKey, new Payload(longUrl)).id;
         } catch (RetrofitError e) {
@@ -61,10 +61,10 @@ final class GoogleUrlShortener implements UrlShortener {
     }
 
     private static final class Payload {
-        private URL id;
-        private URL longUrl;
+        private URI id;
+        private URI longUrl;
 
-        Payload(final URL longUrl) {
+        Payload(final URI longUrl) {
             this.id = null;
             this.longUrl = longUrl;
         }
