@@ -67,4 +67,10 @@ public final class UrlShortenersTest {
         URL shortUrl = urlShortener.shorten(longUrl);
         validateRedirectedUrl(shortUrl);
     }
+
+    @Test
+    public void testIdentityUrlShortener() {
+        UrlShortener shortener = UrlShorteners.identityUrlShortener();
+        assertThat(shortener.shorten(longUrl)).isEqualTo(longUrl);
+    }
 }

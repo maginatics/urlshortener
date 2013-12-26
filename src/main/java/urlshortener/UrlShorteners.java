@@ -41,4 +41,9 @@ public final class UrlShorteners {
     public static UrlShortener googleUrlShortener(final String apiKey) {
         return new GoogleUrlShortener(apiKey);
     }
+
+    /** New URL shortener that returns the URLs as-is. */
+    public static UrlShortener identityUrlShortener() {
+        return new IdentityUrlShortener();
+    }
 }
