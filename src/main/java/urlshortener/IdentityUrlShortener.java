@@ -16,12 +16,12 @@
 
 package urlshortener;
 
-import java.net.URL;
+import java.net.URI;
 
 /** A UrlShortener that simply returns the long URL as-is. */
 final class IdentityUrlShortener implements UrlShortener {
     @Override
-    public URL shorten(final URL longUrl) {
+    public URI shorten(final URI longUrl) {
         return longUrl;
     }
 }

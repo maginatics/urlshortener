@@ -18,8 +18,7 @@ package urlshortener;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assume.assumeTrue;
@@ -27,21 +26,13 @@ import org.junit.Test;
 
 /** Tests for UrlShorteners. */
 public final class UrlShortenersTest {
-    private static final URL longUrl;
+    private static final URI longUrl = URI.create(
+        "http://127.0.0.1/some/random/url");
 
-    static {
-        URL tmpUrl = null;
-        try {
-            tmpUrl = new URL("http://127.0.0.1/some/random/url");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        longUrl = tmpUrl;
-    }
-
-    private static void validateRedirectedUrl(final URL shortUrl)
+    private static void validateRedirectedUrl(final URI shortUrl)
             throws IOException {
-        HttpURLConnection conn = (HttpURLConnection) shortUrl.openConnection();
+        HttpURLConnection conn = (HttpURLConnection) shortUrl.toURL()
+            .openConnection();
         conn.setInstanceFollowRedirects(false);
         conn.connect();
         assertThat(longUrl.toString()).isEqualTo(conn.getHeaderField(
@@ -55,7 +46,7 @@ public final class UrlShortenersTest {
         assumeTrue(accessToken != null);
         UrlShortener urlShortener = UrlShorteners.bitlyUrlShortener(
             accessToken);
-        URL shortUrl = urlShortener.shorten(longUrl);
+        URI shortUrl = urlShortener.shorten(longUrl);
         validateRedirectedUrl(shortUrl);
     }
 
@@ -64,7 +55,7 @@ public final class UrlShortenersTest {
         String apiKey = System.getProperty("urlshortener.googleApiKey");
         assumeTrue(apiKey != null);
         UrlShortener urlShortener = UrlShorteners.googleUrlShortener(apiKey);
-        URL shortUrl = urlShortener.shorten(longUrl);
+        URI shortUrl = urlShortener.shorten(longUrl);
         validateRedirectedUrl(shortUrl);
     }
 

@@ -16,7 +16,7 @@
 
 package urlshortener;
 
-import java.net.URL;
+import java.net.URI;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,7 +53,7 @@ final class BitlyUrlShortener implements UrlShortener {
     }
 
     @Override
-    public URL shorten(final URL longUrl) {
+    public URI shorten(final URI longUrl) {
         ShortenResponse response = bitly.shorten(accessToken, longUrl);
         // If an error happened, returned the original as-is
         if (response.statusCode != HTTP_OK) {
@@ -61,14 +61,14 @@ final class BitlyUrlShortener implements UrlShortener {
                 longUrl, response.statusCode);
             return longUrl;
         }
-        return response.data.url;
+        return response.data.uri;
     }
 
     interface BitlyService {
         // See http://dev.bitly.com/links.html#v3_shorten
         @GET("/v3/shorten")
         ShortenResponse shorten(@Query("access_token") String accessToken,
-                                @Query("longUrl") URL longUrl);
+                                @Query("longUrl") URI longUrl);
     }
 
     private static final class ShortenResponse {
@@ -82,7 +82,7 @@ final class BitlyUrlShortener implements UrlShortener {
         }
 
         static final class Data {
-            private URL url;
+            private URI uri;
 
             // Empty constructor for gson
             Data() {
