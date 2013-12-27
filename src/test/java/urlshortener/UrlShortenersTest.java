@@ -26,7 +26,7 @@ import org.junit.Test;
 
 /** Tests for UrlShorteners. */
 public final class UrlShortenersTest {
-    private static final URI longUrl = URI.create(
+    private static final URI longUri = URI.create(
         "http://127.0.0.1/some/random/url");
 
     private static void validateRedirectedUrl(final URI shortUrl)
@@ -35,7 +35,7 @@ public final class UrlShortenersTest {
             .openConnection();
         conn.setInstanceFollowRedirects(false);
         conn.connect();
-        assertThat(longUrl.toString()).isEqualTo(conn.getHeaderField(
+        assertThat(longUri.toString()).isEqualTo(conn.getHeaderField(
             "Location"));
     }
 
@@ -46,7 +46,7 @@ public final class UrlShortenersTest {
         assumeTrue(accessToken != null);
         UrlShortener urlShortener = UrlShorteners.bitlyUrlShortener(
             accessToken);
-        URI shortUrl = urlShortener.shorten(longUrl);
+        URI shortUrl = urlShortener.shorten(longUri);
         validateRedirectedUrl(shortUrl);
     }
 
@@ -55,13 +55,13 @@ public final class UrlShortenersTest {
         String apiKey = System.getProperty("urlshortener.googleApiKey");
         assumeTrue(apiKey != null);
         UrlShortener urlShortener = UrlShorteners.googleUrlShortener(apiKey);
-        URI shortUrl = urlShortener.shorten(longUrl);
+        URI shortUrl = urlShortener.shorten(longUri);
         validateRedirectedUrl(shortUrl);
     }
 
     @Test
     public void testIdentityUrlShortener() {
         UrlShortener shortener = UrlShorteners.identityUrlShortener();
-        assertThat(shortener.shorten(longUrl)).isEqualTo(longUrl);
+        assertThat(shortener.shorten(longUri)).isEqualTo(longUri);
     }
 }
