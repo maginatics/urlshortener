@@ -29,9 +29,9 @@ public final class UrlShortenersTest {
     private static final URI longUri = URI.create(
         "http://127.0.0.1/some/random/url");
 
-    private static void validateRedirectedUrl(final URI shortUrl)
+    private static void validateRedirectedUrl(final URI shortUri)
             throws IOException {
-        HttpURLConnection conn = (HttpURLConnection) shortUrl.toURL()
+        HttpURLConnection conn = (HttpURLConnection) shortUri.toURL()
             .openConnection();
         conn.setInstanceFollowRedirects(false);
         conn.connect();
@@ -46,8 +46,8 @@ public final class UrlShortenersTest {
         assumeTrue(accessToken != null);
         UrlShortener urlShortener = UrlShorteners.bitlyUrlShortener(
             accessToken);
-        URI shortUrl = urlShortener.shorten(longUri);
-        validateRedirectedUrl(shortUrl);
+        URI shortUri = urlShortener.shorten(longUri);
+        validateRedirectedUrl(shortUri);
     }
 
     @Test
@@ -55,8 +55,8 @@ public final class UrlShortenersTest {
         String apiKey = System.getProperty("urlshortener.googleApiKey");
         assumeTrue(apiKey != null);
         UrlShortener urlShortener = UrlShorteners.googleUrlShortener(apiKey);
-        URI shortUrl = urlShortener.shorten(longUri);
-        validateRedirectedUrl(shortUrl);
+        URI shortUri = urlShortener.shorten(longUri);
+        validateRedirectedUrl(shortUri);
     }
 
     @Test
