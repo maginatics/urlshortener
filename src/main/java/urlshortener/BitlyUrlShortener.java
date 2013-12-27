@@ -61,7 +61,7 @@ final class BitlyUrlShortener implements UrlShortener {
                 longUrl, response.statusCode);
             return longUrl;
         }
-        return response.data.uri;
+        return response.data.url;
     }
 
     interface BitlyService {
@@ -82,7 +82,7 @@ final class BitlyUrlShortener implements UrlShortener {
         }
 
         static final class Data {
-            private URI uri;
+            private URI url;
 
             // Empty constructor for gson
             Data() {
